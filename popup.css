@@ -10,8 +10,8 @@
   --text-faint: #6b615e;
   --accent: #ff9d5c;
   --accent-2: #ff6f59;
-  --grad: linear-gradient(135deg, #ffb24d 0%, #ff7a45 46%, #ff4d6e 112%);
-  --grad-line: linear-gradient(90deg, #ffb24d, #ff7a45 50%, #ff4d6e);
+  --grad: linear-gradient(135deg, #ffc24a 0%, #ff6f3c 46%, #f4436e 112%);
+  --grad-line: linear-gradient(90deg, #ffc24a, #ff6f3c 50%, #f4436e);
   --ok: #46d39a;
   --warn: #f5b14c;
   --danger: #ff5d5d;
@@ -73,10 +73,12 @@ html, body {
 
 .icon-btn {
   background: transparent; border: none; color: var(--text-dim);
-  font-size: 17px; cursor: pointer; padding: 5px 7px; border-radius: 9px; line-height: 1;
+  cursor: pointer; padding: 6px; border-radius: 9px; line-height: 0;
+  display: inline-flex; align-items: center; justify-content: center;
   transition: all 0.15s ease;
 }
 .icon-btn:hover { color: var(--text); background: var(--surface-2); }
+.icon-btn svg { display: block; }
 
 .view { padding: 16px; }
 
@@ -320,8 +322,9 @@ textarea.understood-text:focus { border-color: var(--accent); box-shadow: var(--
 .hist-card:hover { border-color: #3a323c; }
 .hist-top { display: flex; align-items: center; gap: 9px; }
 .hist-star {
-  background: transparent; border: none; cursor: pointer; font-size: 15px;
-  color: var(--text-faint); padding: 0; line-height: 1; flex-shrink: 0; transition: color 0.15s ease;
+  background: transparent; border: none; cursor: pointer;
+  color: var(--text-faint); padding: 0; line-height: 0; flex-shrink: 0;
+  display: inline-flex; align-items: center; transition: color 0.15s ease;
 }
 .hist-star:hover { color: var(--gold); }
 .hist-star.on { color: var(--gold); }

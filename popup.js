@@ -6,7 +6,7 @@
 
 // One-line "what & when" shown live under the expert selector.
 const PERSONA_HINTS = {
-  prompt_engineer: "✓ Recommended. A clean natural-language prompt, best for most tasks. Start here.",
+  prompt_engineer: "Recommended. A clean natural-language prompt, best for most tasks. Start here.",
   context_engineer: "Structured sections (Role · Context · Task · Constraints · Output). Best for complex or reusable prompts.",
   json_prompter: "The prompt as a JSON object. Best when code, an API, or a template will consume it.",
 };
@@ -165,7 +165,7 @@ function updatePersonaSuggest() {
   const label = (PERSONAS[s] || {}).label || s;
   els.personaSuggest.innerHTML = "";
   const pre = document.createElement("span");
-  pre.textContent = "💡 Looks like a fit for ";
+  pre.textContent = "Looks like a fit for ";
   const link = document.createElement("button");
   link.type = "button";
   link.className = "suggest-link";
@@ -454,7 +454,7 @@ function sendTo(target, btn) {
 
   if (btn) {
     const prev = btn.textContent;
-    btn.textContent = "Copied ✓";
+    btn.textContent = "Sent";
     btn.classList.add("sent");
     setTimeout(() => { btn.textContent = prev; btn.classList.remove("sent"); }, 1300);
   }
@@ -463,7 +463,7 @@ function sendTo(target, btn) {
 function copyText(text, btn) {
   navigator.clipboard.writeText(text).then(() => {
     const prev = btn.textContent;
-    btn.textContent = "Copied ✓";
+    btn.textContent = "Copied";
     btn.classList.add("copied");
     setTimeout(() => {
       btn.textContent = prev;
@@ -544,7 +544,9 @@ function historyCard(e) {
 
   const star = document.createElement("button");
   star.className = "hist-star" + (e.starred ? " on" : "");
-  star.textContent = e.starred ? "★" : "☆";
+  star.innerHTML = e.starred
+    ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.7 6 6.6.5-5 4.3 1.5 6.4L12 16.9 6.2 19.8l1.5-6.4-5-4.3 6.6-.5z"/></svg>'
+    : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.2l2.6 5.6 6.1.5-4.6 4 1.4 6L12 16.6 6.1 19.3l1.4-6-4.6-4 6.1-.5z"/></svg>';
   star.title = e.starred ? "Unstar" : "Star";
   star.addEventListener("click", () => toggleStar(e.id));
 
@@ -635,7 +637,7 @@ function hideStatus(el) { el.hidden = true; el.innerHTML = ""; }
 
 function friendlyError(err) {
   const s = err.status;
-  if (s === 401) return "Invalid API key. Check it in Settings (⚙).";
+  if (s === 401) return "Invalid API key. Check it in Settings.";
   if (s === 429) return "Rate limited or out of credits. Try again shortly.";
   if (s === 400) return "Request rejected: " + (err.message || "bad request") + ".";
   if (s >= 500) return "Anthropic API error. Try again in a moment.";

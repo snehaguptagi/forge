@@ -1,6 +1,6 @@
 "use strict";
 /*
- * PromptForge inline button. Injects a floating "✨ Forge" button on
+ * Forge inline button. Injects a floating "Forge" button on
  * chatgpt.com / claude.ai / gemini.google.com. Reads whatever you've typed in
  * the chat composer, sends it to the background worker to run the forge
  * pipeline, and writes the engineered prompt back into the composer.
@@ -80,8 +80,8 @@
     fab = document.createElement("button");
     fab.id = "pf-fab";
     fab.type = "button";
-    fab.textContent = "✦ Forge";
-    fab.title = "Optimize what you typed with PromptForge";
+    fab.textContent = "Forge";
+    fab.title = "Optimize what you typed with Forge";
     fab.addEventListener("click", onForge);
     document.body.appendChild(fab);
   }
@@ -95,7 +95,7 @@
 
   function flash(label, state) {
     setFab(state || "", label);
-    setTimeout(() => { if (!busy) setFab("", "✦ Forge"); }, 1600);
+    setTimeout(() => { if (!busy) setFab("", "Forge"); }, 1600);
   }
 
   function onForge() {
@@ -117,7 +117,7 @@
       }
       const target = findComposer() || composer;
       setText(target, resp.prompt);
-      flash("Forged ✓", "ok");
+      flash("Forged", "ok");
     });
   }
 
@@ -136,7 +136,7 @@
           clearInterval(timer);
           chrome.storage.local.remove("pf_pending");
           setText(c, p.prompt);
-          flash("Inserted ✓", "ok");
+          flash("Inserted", "ok");
         } else if (++tries > 24) {
           clearInterval(timer); // ~12s; leave pf_pending so a manual reload can retry
         }

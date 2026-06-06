@@ -9,7 +9,7 @@ os.makedirs(DOCS, exist_ok=True)
 
 W, H = 1280, 440
 BG = (11, 10, 12)
-EMBER = [(0.0, (255, 178, 77)), (0.5, (255, 122, 69)), (1.0, (255, 77, 110))]
+EMBER = [(0.0, (255, 194, 74)), (0.5, (255, 111, 60)), (1.0, (244, 67, 110))]
 WHITE = (244, 240, 238)
 DIM = (173, 163, 159)
 SS = 2
@@ -70,8 +70,11 @@ t_img = diag_tile(tile).convert("RGBA")
 mask = Image.new("L", (tile, tile), 0)
 ImageDraw.Draw(mask).rounded_rectangle([0, 0, tile - 1, tile - 1], radius=int(tile * 0.26), fill=255)
 sp = Image.new("RGBA", (tile, tile), (0, 0, 0, 0))
-spark(ImageDraw.Draw(sp), tile * 0.45, tile * 0.47, tile * 0.33)
-spark(ImageDraw.Draw(sp), tile * 0.75, tile * 0.25, tile * 0.10, 0.24)
+spd = ImageDraw.Draw(sp)
+rr = tile * 0.03
+for (x0, y0, x1, y1) in [(0.31, 0.22, 0.45, 0.80), (0.31, 0.22, 0.73, 0.365), (0.31, 0.445, 0.65, 0.575)]:
+    spd.rounded_rectangle([x0 * tile, y0 * tile, x1 * tile, y1 * tile], radius=rr, fill=(255, 255, 255, 255))
+spark(spd, tile * 0.785, tile * 0.30, tile * 0.085, 0.26)
 t_img.alpha_composite(sp)
 t_img.putalpha(mask)
 img.paste(t_img, (tx, ty), t_img)

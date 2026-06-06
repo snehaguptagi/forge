@@ -13,21 +13,29 @@
         <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="forgeGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#FFB24D"/>
-              <stop offset="0.5" stop-color="#FF7A45"/>
-              <stop offset="1" stop-color="#FF4D6E"/>
+              <stop stop-color="#FFC24A"/>
+              <stop offset="0.5" stop-color="#FF6F3C"/>
+              <stop offset="1" stop-color="#F4436E"/>
             </linearGradient>
           </defs>
           <rect x="1.5" y="1.5" width="29" height="29" rx="8.5" fill="url(#forgeGrad)"/>
-          <path d="M16 5.4l2.85 7.75L26.6 16l-7.75 2.85L16 26.6l-2.85-7.75L5.4 16l7.75-2.85z" fill="#fff"/>
-          <circle cx="24.2" cy="8" r="1.7" fill="#fff" fill-opacity="0.92"/>
+          <g fill="#fff">
+            <rect x="9.9" y="7" width="4.5" height="18.6" rx="1"/>
+            <rect x="9.9" y="7" width="13.4" height="4.7" rx="1"/>
+            <rect x="9.9" y="14.2" width="10.9" height="4.2" rx="1"/>
+            <path d="M25.1 6.9l0.6 2 2 0.7-2 0.6-0.6 2-0.6-2-2-0.6 2-0.7z"/>
+          </g>
         </svg>
       </span>
       <span class="brand-name">Forge</span>
     </div>
     <div class="header-actions">
-      <button id="historyBtn" class="icon-btn" title="History" aria-label="History">🕘</button>
-      <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
+      <button id="historyBtn" class="icon-btn" title="History" aria-label="History">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>
+      </button>
+      <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13a1.65 1.65 0 0 0 .33 1.82l.05.05a2 2 0 1 1-2.83 2.83l-.05-.05a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 7 19.4a1.65 1.65 0 0 0-1.82.33l-.05.05a2 2 0 1 1-2.83-2.83l.05-.05A1.65 1.65 0 0 0 2.6 14H2.5a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.05-.05a2 2 0 1 1 2.83-2.83l.05.05A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10.5 3.09V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 17 4.6a1.65 1.65 0 0 0 1.82-.33l.05-.05a2 2 0 1 1 2.83 2.83l-.05.05A1.65 1.65 0 0 0 21.4 9v.09A1.65 1.65 0 0 0 22.91 10.5H23a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
     </div>
   </header>
 
@@ -60,7 +68,7 @@
     </div>
 
     <button id="forgeBtn" type="button" class="primary-btn">Forge prompt</button>
-    <button id="keyBtn" type="button" class="secondary-btn">🔑 Enter Anthropic key</button>
+    <button id="keyBtn" type="button" class="secondary-btn">Enter Anthropic key</button>
 
     <div id="status" class="status" hidden></div>
 
