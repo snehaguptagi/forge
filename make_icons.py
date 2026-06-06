@@ -1,5 +1,5 @@
-"""Generate Forge PNG icons (16/32/48/128): a bold white "F" monogram with a
-spark accent on a diagonal ember-gradient tile. Run: python3 make_icons.py"""
+"""Generate Forge PNG icons (16/32/48/128): a white faceted diamond on a
+diagonal ember-gradient tile. Run: python3 make_icons.py"""
 import os
 from PIL import Image, ImageDraw
 
@@ -9,14 +9,8 @@ os.makedirs(OUT, exist_ok=True)
 # diagonal ember gradient: gold -> orange -> crimson-rose
 STOPS = [(0.0, (255, 194, 74)), (0.5, (255, 111, 60)), (1.0, (244, 67, 110))]
 MARK = (255, 255, 255)
+FACET = (255, 111, 60)  # girdle line color
 SS = 8  # supersample
-
-# bold "F" monogram as three bars (x0,y0,x1,y1 in unit coords, y down)
-F_BARS = [
-    (0.31, 0.22, 0.45, 0.80),   # stem
-    (0.31, 0.22, 0.73, 0.365),  # top arm
-    (0.31, 0.445, 0.65, 0.575), # middle arm
-]
 
 
 def lerp(a, b, t):
@@ -51,12 +45,11 @@ def make(size):
 
     glyph = Image.new("RGBA", (big, big), (0, 0, 0, 0))
     gd = ImageDraw.Draw(glyph)
-    r = big * 0.03
-    for (x0, y0, x1, y1) in F_BARS:
-        gd.rounded_rectangle([x0 * big, y0 * big, x1 * big, y1 * big], radius=r, fill=MARK)
-    cx, cy, R, ir = big * 0.785, big * 0.30, big * 0.085, big * 0.022
-    gd.polygon([(cx, cy - R), (cx + ir, cy - ir), (cx + R, cy), (cx + ir, cy + ir),
-                (cx, cy + R), (cx - ir, cy + ir), (cx - R, cy), (cx - ir, cy - ir)], fill=MARK)
+    cx = cy = big / 2
+    R = big * 0.32          # vertical half-height
+    hw = R * 0.72           # horizontal half-width
+    gd.polygon([(cx, cy - R), (cx + hw, cy), (cx, cy + R), (cx - hw, cy)], fill=MARK)
+    gd.line([(cx - hw, cy), (cx + hw, cy)], fill=FACET + (255,), width=max(2, int(big * 0.022)))
     base.alpha_composite(glyph)
 
     base.putalpha(rounded_mask(big, int(big * 0.24)))

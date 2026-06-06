@@ -71,10 +71,11 @@ mask = Image.new("L", (tile, tile), 0)
 ImageDraw.Draw(mask).rounded_rectangle([0, 0, tile - 1, tile - 1], radius=int(tile * 0.26), fill=255)
 sp = Image.new("RGBA", (tile, tile), (0, 0, 0, 0))
 spd = ImageDraw.Draw(sp)
-rr = tile * 0.03
-for (x0, y0, x1, y1) in [(0.31, 0.22, 0.45, 0.80), (0.31, 0.22, 0.73, 0.365), (0.31, 0.445, 0.65, 0.575)]:
-    spd.rounded_rectangle([x0 * tile, y0 * tile, x1 * tile, y1 * tile], radius=rr, fill=(255, 255, 255, 255))
-spark(spd, tile * 0.785, tile * 0.30, tile * 0.085, 0.26)
+dcx = dcy = tile / 2
+dR = tile * 0.32
+dhw = dR * 0.72
+spd.polygon([(dcx, dcy - dR), (dcx + dhw, dcy), (dcx, dcy + dR), (dcx - dhw, dcy)], fill=(255, 255, 255, 255))
+spd.line([(dcx - dhw, dcy), (dcx + dhw, dcy)], fill=(255, 111, 60, 255), width=int(tile * 0.022))
 t_img.alpha_composite(sp)
 t_img.putalpha(mask)
 img.paste(t_img, (tx, ty), t_img)
