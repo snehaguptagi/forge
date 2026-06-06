@@ -21,7 +21,7 @@ A Chrome extension that kills prompt anxiety. You don't craft the perfect prompt
 - **Reusable context memory** — save an "about you / your project" blurb once in Settings; it's woven into every forge to tailor role, tone, and terminology. A toggle on the main screen turns it on/off per prompt.
 - **Inline on AI sites** — a ✦ Forge button is injected on **ChatGPT, Claude, and Gemini**. Type a rough prompt in the chat box, click Forge, and it's replaced in place with the engineered version (uses your saved expert + context; runs the same pipeline in a background worker so it isn't blocked by site CSP).
 - **Dedicated 🔑 key button** on the main screen (in addition to the ⚙ gear) for quickly entering your Anthropic API key.
-- **One-click copy** of the best round, or **Open in ChatGPT / Claude / Gemini** — opens the prompt prefilled (and copies it to the clipboard as a reliable carrier for long prompts).
+- **One-click copy** of the best round, or **Open in ChatGPT / Claude / Gemini** — opens the site and the content script drops the prompt straight into the composer (via a storage handoff; clipboard is the guaranteed fallback). Auto-insert needs the installed extension; on the localhost web page it copies to the clipboard for you to paste.
 - **Your key, your browser** — the Anthropic API key lives in `chrome.storage.local` and is only ever sent to `api.anthropic.com`.
 
 ## Install (unpacked)

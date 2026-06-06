@@ -121,10 +121,34 @@
     });
   }
 
+  // A prompt sent from the popup ("Open in ChatGPT/Claude/Gemini") is parked in
+  // storage; insert it into the composer once this site's composer exists.
+  function tryInsertPending() {
+    if (!chrome.storage || !chrome.storage.local) return;
+    chrome.storage.local.get(["pf_pending"], (d) => {
+      const p = d && d.pf_pending;
+      if (!p || !p.prompt) return;
+      if (Date.now() - (p.ts || 0) > 60000) { chrome.storage.local.remove("pf_pending"); return; }
+      let tries = 0;
+      const timer = setInterval(() => {
+        const c = findComposer();
+        if (c) {
+          clearInterval(timer);
+          chrome.storage.local.remove("pf_pending");
+          setText(c, p.prompt);
+          flash("Inserted ✓", "ok");
+        } else if (++tries > 24) {
+          clearInterval(timer); // ~12s; leave pf_pending so a manual reload can retry
+        }
+      }, 500);
+    });
+  }
+
   // Inject once the page is ready, and keep it present across SPA navigation.
   function boot() {
     ensureFab();
     setInterval(ensureFab, 3000);
+    setTimeout(tryInsertPending, 400);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
