@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "PromptForge — Type it, get the perfect prompt",
+  "version": "1.0.0",
+  "description": "Stop wrestling with wording. Type your raw intent and PromptForge decodes it, then an expert refines it into a tight, well-engineered prompt using Claude.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PromptForge",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["https://api.anthropic.com/*"]
+}

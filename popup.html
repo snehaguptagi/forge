@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>PromptForge</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark">✦</span>
+      <span class="brand-name">PromptForge</span>
+    </div>
+    <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
+  </header>
+
+  <!-- ============ FORGE VIEW ============ -->
+  <main id="forgeView" class="view">
+    <p class="tagline">Type it however you want. Watch it refine itself into the prompt you should've written.</p>
+
+    <div class="input-wrap">
+      <textarea id="raw" rows="5"
+        placeholder="Dump your thoughts here — type it however. Messy is fine, that's the point."></textarea>
+    </div>
+
+    <div class="persona">
+      <span class="persona-label">Who structures it</span>
+      <div class="seg" id="personaSeg" role="tablist">
+        <button type="button" class="seg-btn active" data-persona="prompt_engineer" title="Clean best-practice prompt">Prompt Engineer</button>
+        <button type="button" class="seg-btn" data-persona="context_engineer" title="Structured Role/Context/Task/Constraints sections">Context Engineer</button>
+        <button type="button" class="seg-btn" data-persona="json_prompter" title="Prompt emitted as a JSON object">JSON Prompter</button>
+      </div>
+    </div>
+
+    <button id="forgeBtn" type="button" class="primary-btn">Forge prompt</button>
+    <button id="keyBtn" type="button" class="secondary-btn">🔑 Enter Anthropic key</button>
+
+    <div id="status" class="status" hidden></div>
+
+    <div id="understood" class="understood" hidden>
+      <span class="understood-label">Understood intent</span>
+      <div id="understoodText" class="understood-text"></div>
+    </div>
+
+    <div id="convergence" class="convergence" hidden></div>
+
+    <div id="output" class="output" hidden>
+      <div class="output-head">
+        <span id="outputLabel" class="output-label">Engineered prompt</span>
+        <div class="output-actions">
+          <button id="copyBtn" class="copy-btn">Copy</button>
+          <button id="redoBtn" class="ghost-btn" title="Refine again">↻</button>
+        </div>
+      </div>
+      <div id="outputText" class="output-text"></div>
+      <div id="critiqueNote" class="critique-note" hidden></div>
+    </div>
+  </main>
+
+  <!-- ============ SETTINGS VIEW ============ -->
+  <section id="settingsView" class="view" hidden>
+    <div class="form">
+      <label class="field">
+        <span class="field-label">Anthropic API key</span>
+        <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
+        <span class="hint">Stored locally in this browser only. Get a key at
+          <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.
+        </span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Model</span>
+        <select id="model">
+          <option value="claude-sonnet-4-6">Sonnet 4.6 — balanced (recommended)</option>
+          <option value="claude-haiku-4-5-20251001">Haiku 4.5 — fastest, cheapest</option>
+          <option value="claude-opus-4-8">Opus 4.8 — highest quality</option>
+        </select>
+      </label>
+
+      <button id="saveSettingsBtn" type="button" class="primary-btn">Save settings</button>
+      <div id="settingsStatus" class="status" hidden></div>
+      <button id="backBtn" type="button" class="link-btn">← Back</button>
+    </div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>

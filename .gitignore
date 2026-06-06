@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Node (not used today, but in case tooling is added later)
+node_modules/
+
+# Local notes / scratch
+*.log
