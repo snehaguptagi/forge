@@ -9,15 +9,19 @@ A Chrome extension that kills prompt anxiety. You don't craft the perfect prompt
 ## Features
 
 - **Two-stage pipeline (one click):**
-  1. **Decode** — turns your gibberish into a clear English statement of intent (typos fixed, nothing added, no requirements lost) and shows it back to you as "Understood intent."
-  2. **Structure + refine** — the chosen expert builds the prompt, then self-critiques and improves it over up to 4 rounds, stopping early once it converges. You watch the quality score climb and can click any round to see that version and what changed.
+  1. **Decode** — turns your gibberish into a clear English statement of intent (typos fixed, nothing added, no requirements lost), shown as an **editable "Understood intent"** — if it misread you, fix it and hit **Re-forge from this** to re-structure without re-decoding.
+  2. **Structure + refine** — the chosen expert builds the prompt, then self-critiques and improves it over up to 4 rounds, stopping early once it converges. You watch the quality score climb, click any round to see that version, and read a **"What improved"** trail explaining what each round changed.
+- **Explainable score** — the headline number isn't a vibe: each round scores **Clarity · Specificity · Structure · Completeness** (shown as bars), and the overall score is their average.
 - **Three selectable experts** drive the structuring stage (each encodes researched best practices):
   - **Prompt Engineer** — clean, best-practice natural-language prompt (default).
   - **Context Engineer** — minimal high-signal context at the "right altitude": labeled Role / Context / Task / Constraints / Output sections with delimiters, examples over edge-case lists.
   - **JSON Prompter** — emits the prompt as a flat, enum-typed JSON object with reasoning-before-answer field order.
 - **Guaranteed-valid verdicts** — the refine loop uses Anthropic **Structured Outputs** so each round's JSON can't fail to parse (falls back to prompt-guided JSON if the API doesn't accept it).
+- **History (🕘)** — every forge auto-saves (input, expert, score, rounds). Revisit, **copy**, **re-forge**, **star** favorites, or delete; stored locally in `chrome.storage.local`, capped at 50 (starred are always kept).
+- **Reusable context memory** — save an "about you / your project" blurb once in Settings; it's woven into every forge to tailor role, tone, and terminology. A toggle on the main screen turns it on/off per prompt.
+- **Inline on AI sites** — a ✦ Forge button is injected on **ChatGPT, Claude, and Gemini**. Type a rough prompt in the chat box, click Forge, and it's replaced in place with the engineered version (uses your saved expert + context; runs the same pipeline in a background worker so it isn't blocked by site CSP).
 - **Dedicated 🔑 key button** on the main screen (in addition to the ⚙ gear) for quickly entering your Anthropic API key.
-- **One-click copy** of the best round.
+- **One-click copy** of the best round, or **Open in ChatGPT / Claude / Gemini** — opens the prompt prefilled (and copies it to the clipboard as a reliable carrier for long prompts).
 - **Your key, your browser** — the Anthropic API key lives in `chrome.storage.local` and is only ever sent to `api.anthropic.com`.
 
 ## Install (unpacked)
@@ -51,7 +55,11 @@ The score is the model's own self-assessment of prompt quality, shown to visuali
 | `manifest.json` | MV3 manifest — popup action, `storage` permission, `api.anthropic.com` host permission |
 | `popup.html` / `popup.css` | UI (forge view + settings view) |
 | `popup.js` | Decode + persona system prompts, refine loop, Structured Outputs call, rendering |
+| `background.js` | Service worker — runs the forge pipeline for the inline button (off the page, past site CSP) |
+| `content.js` / `content.css` | Injects the ✦ Forge button into ChatGPT/Claude/Gemini; reads & writes the chat composer |
 | `make_icons.py` | Regenerates the sparkle PNG icons in `icons/` |
+
+> Note: `background.js` currently mirrors the pipeline from `popup.js`. A future cleanup should extract the shared logic into one `engine.js` loaded by both.
 
 ## Notes
 
