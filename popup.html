@@ -9,8 +9,21 @@
 <body>
   <header class="app-header">
     <div class="brand">
-      <span class="brand-mark">✦</span>
-      <span class="brand-name">PromptForge</span>
+      <span class="brand-logo" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="forgeGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFB24D"/>
+              <stop offset="0.5" stop-color="#FF7A45"/>
+              <stop offset="1" stop-color="#FF4D6E"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="29" height="29" rx="8.5" fill="url(#forgeGrad)"/>
+          <path d="M16 5.4l2.85 7.75L26.6 16l-7.75 2.85L16 26.6l-2.85-7.75L5.4 16l7.75-2.85z" fill="#fff"/>
+          <circle cx="24.2" cy="8" r="1.7" fill="#fff" fill-opacity="0.92"/>
+        </svg>
+      </span>
+      <span class="brand-name">Forge</span>
     </div>
     <div class="header-actions">
       <button id="historyBtn" class="icon-btn" title="History" aria-label="History">🕘</button>
@@ -20,19 +33,19 @@
 
   <!-- ============ FORGE VIEW ============ -->
   <main id="forgeView" class="view">
-    <p class="tagline">Type it however you want. Watch it refine itself into the prompt you should've written.</p>
+    <p class="tagline">Dump a rough idea. Watch it get forged: decoded, structured, and refined into the prompt you should've written.</p>
 
     <div class="input-wrap">
       <textarea id="raw" rows="5"
-        placeholder="Dump your thoughts here — type it however. Messy is fine, that's the point."></textarea>
+        placeholder="Dump your thoughts here - type it however. Messy is fine, that's the point."></textarea>
     </div>
 
     <div class="persona">
       <span class="persona-label">Who structures it</span>
       <div class="seg" id="personaSeg" role="tablist">
-        <button type="button" class="seg-btn active" data-persona="prompt_engineer" data-recommended title="Clean natural-language prompt — best for most tasks">Prompt Engineer</button>
-        <button type="button" class="seg-btn" data-persona="context_engineer" title="Structured Role/Context/Task/Constraints sections — for complex or reusable prompts">Context Engineer</button>
-        <button type="button" class="seg-btn" data-persona="json_prompter" title="Prompt as a JSON object — when code or a template consumes it">JSON Prompter</button>
+        <button type="button" class="seg-btn active" data-persona="prompt_engineer" data-recommended title="Clean natural-language prompt - best for most tasks">Prompt Engineer</button>
+        <button type="button" class="seg-btn" data-persona="context_engineer" title="Structured Role/Context/Task/Constraints sections - for complex or reusable prompts">Context Engineer</button>
+        <button type="button" class="seg-btn" data-persona="json_prompter" title="Prompt as a JSON object - when code or a template consumes it">JSON Prompter</button>
       </div>
       <div id="personaHint" class="persona-hint"></div>
       <div id="personaSuggest" class="persona-suggest" hidden></div>
@@ -53,7 +66,7 @@
 
     <div id="understood" class="understood" hidden>
       <div class="understood-head">
-        <span class="understood-label">Understood intent <span class="understood-hint">— edit if it's off</span></span>
+        <span class="understood-label">Understood intent <span class="understood-hint">(edit if it's off)</span></span>
         <button id="reintentBtn" class="ghost-btn" type="button" title="Re-structure from this edited intent (skips decode)">Re-forge ↻</button>
       </div>
       <textarea id="understoodText" class="understood-text" rows="3" spellcheck="false"></textarea>
@@ -95,15 +108,15 @@
       <label class="field">
         <span class="field-label">Model</span>
         <select id="model">
-          <option value="claude-sonnet-4-6">Sonnet 4.6 — balanced (recommended)</option>
-          <option value="claude-haiku-4-5-20251001">Haiku 4.5 — fastest, cheapest</option>
-          <option value="claude-opus-4-8">Opus 4.8 — highest quality</option>
+          <option value="claude-sonnet-4-6">Sonnet 4.6 - balanced (recommended)</option>
+          <option value="claude-haiku-4-5-20251001">Haiku 4.5 - fastest, cheapest</option>
+          <option value="claude-opus-4-8">Opus 4.8 - highest quality</option>
         </select>
       </label>
 
       <label class="field">
         <span class="field-label">Your context (optional)</span>
-        <textarea id="userContext" rows="3" placeholder="Who you are, your product/project, your audience, recurring constraints — reused to tailor every prompt."></textarea>
+        <textarea id="userContext" rows="3" placeholder="Who you are, your product/project, your audience, recurring constraints - reused to tailor every prompt."></textarea>
         <span class="hint">Saved locally. Woven into each forge to tailor role, tone, and terminology. Toggle it off per prompt on the main screen.</span>
       </label>
 

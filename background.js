@@ -5,7 +5,7 @@
  * claude.ai / gemini.google.com). The API call lives here (not in the content
  * script) so it isn't blocked by each site's Content-Security-Policy.
  *
- * The pipeline itself is the shared engine — single source of truth with the popup.
+ * The pipeline itself is the shared engine - single source of truth with the popup.
  */
 
 importScripts("engine.js");

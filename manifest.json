@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "PromptForge — Type it, get the perfect prompt",
+  "name": "Forge - AI Prompt Optimizer",
   "version": "1.0.0",
-  "description": "Stop wrestling with wording. Type your raw intent and PromptForge decodes it, then an expert refines it into a tight, well-engineered prompt using Claude.",
+  "description": "Dump a rough idea and Forge decodes it, then an expert refines it into a tight, well-engineered prompt using Claude - with a visible self-improving loop and a quality score.",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "PromptForge",
+    "default_title": "Forge - AI Prompt Optimizer",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

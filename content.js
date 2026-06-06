@@ -5,7 +5,7 @@
  * the chat composer, sends it to the background worker to run the forge
  * pipeline, and writes the engineered prompt back into the composer.
  *
- * Per-site DOM is inherently fragile — selectors are best-effort with a generic
+ * Per-site DOM is inherently fragile - selectors are best-effort with a generic
  * fallback (largest visible editable). If a site changes its markup, update
  * findComposer() / the SELECTORS map.
  */
@@ -109,7 +109,7 @@
     setFab("busy", "Forging…");
     chrome.runtime.sendMessage({ type: "pf-forge", raw }, (resp) => {
       busy = false;
-      if (chrome.runtime.lastError) { flash("Extension reloaded — refresh page", "warn"); return; }
+      if (chrome.runtime.lastError) { flash("Extension reloaded - refresh page", "warn"); return; }
       if (!resp || !resp.ok) {
         if (resp && resp.error === "nokey") flash("Add your Anthropic key in the popup", "warn");
         else flash((resp && resp.error) ? resp.error.slice(0, 40) : "Forge failed", "warn");

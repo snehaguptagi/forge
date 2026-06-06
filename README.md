@@ -1,28 +1,28 @@
-# PromptForge
+# Forge - AI Prompt Optimizer
 
-**Type it however you want — get the prompt you should've written.**
+**Dump a rough idea - get the prompt you should've written.**
 
-A Chrome extension that kills prompt anxiety. You don't craft the perfect prompt; you just dump your intent — type it messily — and PromptForge uses Claude to decode your raw thoughts and refine them into one tight, well-engineered prompt you can paste into any AI.
+A Chrome extension that kills prompt anxiety. You don't craft the perfect prompt; you just dump your intent - type it messily - and Forge uses Claude to decode your raw thoughts and refine them into one tight, well-engineered prompt, with a visible self-improving loop and a quality score. (Repo/folder name remains `promptforge-extension`.)
 
-> **v1 is text-only.** Voice input (dictate your intent) is designed and was prototyped with the Web Speech API; it's deferred to a later version. The pipeline below is unchanged when voice returns — it just fills the same text box.
+> **v1 is text-only.** Voice input (dictate your intent) is designed and was prototyped with the Web Speech API; it's deferred to a later version. The pipeline below is unchanged when voice returns - it just fills the same text box.
 
 ## Features
 
 - **Two-stage pipeline (one click):**
-  1. **Decode** — turns your gibberish into a clear English statement of intent (typos fixed, nothing added, no requirements lost), shown as an **editable "Understood intent"** — if it misread you, fix it and hit **Re-forge from this** to re-structure without re-decoding.
-  2. **Structure + refine** — the chosen expert builds the prompt, then self-critiques and improves it over up to 4 rounds, stopping early once it converges. You watch the quality score climb, click any round to see that version, and read a **"What improved"** trail explaining what each round changed.
-- **Explainable score** — the headline number isn't a vibe: each round scores **Clarity · Specificity · Structure · Completeness** (shown as bars), and the overall score is their average.
+  1. **Decode** - turns your gibberish into a clear English statement of intent (typos fixed, nothing added, no requirements lost), shown as an **editable "Understood intent"** - if it misread you, fix it and hit **Re-forge from this** to re-structure without re-decoding.
+  2. **Structure + refine** - the chosen expert builds the prompt, then self-critiques and improves it over up to 4 rounds, stopping early once it converges. You watch the quality score climb, click any round to see that version, and read a **"What improved"** trail explaining what each round changed.
+- **Explainable score** - the headline number isn't a vibe: each round scores **Clarity · Specificity · Structure · Completeness** (shown as bars), and the overall score is their average.
 - **Three selectable experts** drive the structuring stage (each encodes researched best practices):
-  - **Prompt Engineer** — clean, best-practice natural-language prompt (default).
-  - **Context Engineer** — minimal high-signal context at the "right altitude": labeled Role / Context / Task / Constraints / Output sections with delimiters, examples over edge-case lists.
-  - **JSON Prompter** — emits the prompt as a flat, enum-typed JSON object with reasoning-before-answer field order.
-- **Guaranteed-valid verdicts** — the refine loop uses Anthropic **Structured Outputs** so each round's JSON can't fail to parse (falls back to prompt-guided JSON if the API doesn't accept it).
-- **History (🕘)** — every forge auto-saves (input, expert, score, rounds). Revisit, **copy**, **re-forge**, **star** favorites, or delete; stored locally in `chrome.storage.local`, capped at 50 (starred are always kept).
-- **Reusable context memory** — save an "about you / your project" blurb once in Settings; it's woven into every forge to tailor role, tone, and terminology. A toggle on the main screen turns it on/off per prompt.
-- **Inline on AI sites** — a ✦ Forge button is injected on **ChatGPT, Claude, and Gemini**. Type a rough prompt in the chat box, click Forge, and it's replaced in place with the engineered version (uses your saved expert + context; runs the same pipeline in a background worker so it isn't blocked by site CSP).
+  - **Prompt Engineer** - clean, best-practice natural-language prompt (default).
+  - **Context Engineer** - minimal high-signal context at the "right altitude": labeled Role / Context / Task / Constraints / Output sections with delimiters, examples over edge-case lists.
+  - **JSON Prompter** - emits the prompt as a flat, enum-typed JSON object with reasoning-before-answer field order.
+- **Guaranteed-valid verdicts** - the refine loop uses Anthropic **Structured Outputs** so each round's JSON can't fail to parse (falls back to prompt-guided JSON if the API doesn't accept it).
+- **History (🕘)** - every forge auto-saves (input, expert, score, rounds). Revisit, **copy**, **re-forge**, **star** favorites, or delete; stored locally in `chrome.storage.local`, capped at 50 (starred are always kept).
+- **Reusable context memory** - save an "about you / your project" blurb once in Settings; it's woven into every forge to tailor role, tone, and terminology. A toggle on the main screen turns it on/off per prompt.
+- **Inline on AI sites** - a ✦ Forge button is injected on **ChatGPT, Claude, and Gemini**. Type a rough prompt in the chat box, click Forge, and it's replaced in place with the engineered version (uses your saved expert + context; runs the same pipeline in a background worker so it isn't blocked by site CSP).
 - **Dedicated 🔑 key button** on the main screen (in addition to the ⚙ gear) for quickly entering your Anthropic API key.
-- **One-click copy** of the best round, or **Open in ChatGPT / Claude / Gemini** — opens the site and the content script drops the prompt straight into the composer (via a storage handoff; clipboard is the guaranteed fallback). Auto-insert needs the installed extension; on the localhost web page it copies to the clipboard for you to paste.
-- **Your key, your browser** — the Anthropic API key lives in `chrome.storage.local` and is only ever sent to `api.anthropic.com`.
+- **One-click copy** of the best round, or **Open in ChatGPT / Claude / Gemini** - opens the site and the content script drops the prompt straight into the composer (via a storage handoff; clipboard is the guaranteed fallback). Auto-insert needs the installed extension; on the localhost web page it copies to the clipboard for you to paste.
+- **Your key, your browser** - the Anthropic API key lives in `chrome.storage.local` and is only ever sent to `api.anthropic.com`.
 
 ## Install (unpacked)
 
@@ -41,21 +41,21 @@ A Chrome extension that kills prompt anxiety. You don't craft the perfect prompt
 
 `popup.js` runs a two-stage pipeline against the Anthropic Messages API:
 
-1. **Decode** (1 call, `DECODE_SYSTEM`) — rewrites the raw input into a clean intent statement, preserving every requirement and adding nothing.
-2. **Structure + refine** (2–4 calls, `buildStructureSystem(persona)`) — the selected expert turns the clean intent into a prompt and iterates. Each round returns a JSON verdict — `{critique, prompt, score, done}` — rendered progressively as a convergence strip (`R1 · 78 → R2 · 89 → …`). The loop runs min 2 / max 4 rounds, stopping early on `done` or self-score ≥ 95. The final card shows the highest-scoring round.
+1. **Decode** (1 call, `DECODE_SYSTEM`) - rewrites the raw input into a clean intent statement, preserving every requirement and adding nothing.
+2. **Structure + refine** (2-4 calls, `buildStructureSystem(persona)`) - the selected expert turns the clean intent into a prompt and iterates. Each round returns a JSON verdict - `{critique, prompt, score, done}` - rendered progressively as a convergence strip (`R1 · 78 → R2 · 89 → …`). The loop runs min 2 / max 4 rounds, stopping early on `done` or self-score ≥ 95. The final card shows the highest-scoring round.
 
 The verdict calls use **Structured Outputs** (`output_config.format` with a JSON schema), which constrains decoding so the response is guaranteed to match the schema. If the API rejects that field, `callClaudeForVerdict` retries once without it and relies on the prompt-guided JSON + defensive parsing. Calls are made directly from the popup via the `anthropic-dangerous-direct-browser-access: true` header (browser CORS otherwise blocks it). Each stage's system prompt is marked cacheable, so rounds within a forge are cheaper.
 
-The score is the model's own self-assessment of prompt quality, shown to visualize convergence — not an external benchmark.
+The score is the model's own self-assessment of prompt quality, shown to visualize convergence - not an external benchmark.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `manifest.json` | MV3 manifest — popup action, `storage` permission, `api.anthropic.com` host permission |
+| `manifest.json` | MV3 manifest - popup action, `storage` permission, `api.anthropic.com` host permission |
 | `popup.html` / `popup.css` | UI (forge view + settings view) |
 | `popup.js` | Decode + persona system prompts, refine loop, Structured Outputs call, rendering |
-| `background.js` | Service worker — runs the forge pipeline for the inline button (off the page, past site CSP) |
+| `background.js` | Service worker - runs the forge pipeline for the inline button (off the page, past site CSP) |
 | `content.js` / `content.css` | Injects the ✦ Forge button into ChatGPT/Claude/Gemini; reads & writes the chat composer |
 | `make_icons.py` | Regenerates the sparkle PNG icons in `icons/` |
 
@@ -64,5 +64,5 @@ The score is the model's own self-assessment of prompt quality, shown to visuali
 ## Notes
 
 - API usage is billed to your Anthropic account.
-- A forge is 3–5 Claude calls (1 decode + 2–4 refine).
+- A forge is 3-5 Claude calls (1 decode + 2-4 refine).
 - The expert system prompts encode best practices distilled from Anthropic, OpenAI, Google, and the context-engineering literature.

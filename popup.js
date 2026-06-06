@@ -6,7 +6,7 @@
 
 // One-line "what & when" shown live under the expert selector.
 const PERSONA_HINTS = {
-  prompt_engineer: "✓ Recommended — a clean natural-language prompt. Best for most tasks; start here.",
+  prompt_engineer: "✓ Recommended. A clean natural-language prompt, best for most tasks. Start here.",
   context_engineer: "Structured sections (Role · Context · Task · Constraints · Output). Best for complex or reusable prompts.",
   json_prompter: "The prompt as a JSON object. Best when code, an API, or a template will consume it.",
 };
@@ -172,14 +172,14 @@ function updatePersonaSuggest() {
   link.textContent = label;
   link.addEventListener("click", () => setPersona(s, true));
   const post = document.createElement("span");
-  post.textContent = " — tap to switch.";
+  post.textContent = " (tap to switch).";
   els.personaSuggest.append(pre, link, post);
   els.personaSuggest.hidden = false;
 }
 
 function saveSettings() {
   if (!hasStorage()) {
-    setStatus(els.settingsStatus, "Storage unavailable — load this as an installed extension.", "error");
+    setStatus(els.settingsStatus, "Storage unavailable - load this as an installed extension.", "error");
     return;
   }
   store.set(
@@ -226,7 +226,7 @@ async function forge() {
   els.understoodText.value = "";
   setBusy(true);
 
-  // STAGE A — decode the gibberish into clear English intent.
+  // STAGE A - decode the gibberish into clear English intent.
   let intent;
   try {
     setStatus(els.status, '<span class="spinner"></span>Understanding what you mean…', "loading");
@@ -237,22 +237,21 @@ async function forge() {
     return;
   }
   if (!intent) {
-    setStatus(els.status, "Couldn't read that — try again.", "error");
+    setStatus(els.status, "Couldn't read that - try again.", "error");
     setBusy(false);
     return;
   }
   els.understoodText.value = intent;
   els.understood.hidden = false;
 
-  // STAGE B — structure + refine.
+  // STAGE B - structure + refine.
   await runStructureLoop({ apiKey, model, intent, ctx, raw });
 }
 
-// Re-run only the structure loop using the (possibly edited) Understood intent —
-// skips decode, so user corrections to the intent take effect directly.
+// Re-run only the structure loop using the (possibly edited) Understood intent - // skips decode, so user corrections to the intent take effect directly.
 async function structureFromEditedIntent() {
   const intent = els.understoodText.value.trim();
-  if (!intent) { setStatus(els.status, "The intent is empty — type one or forge from scratch.", "error"); return; }
+  if (!intent) { setStatus(els.status, "The intent is empty - type one or forge from scratch.", "error"); return; }
 
   const { apiKey, model, context } = await getSettings();
   if (!apiKey) {
@@ -350,7 +349,7 @@ function setActive(i) {
   renderConvergence();
 }
 
-// Per-dimension score bars for the active round — makes the headline number explainable.
+// Per-dimension score bars for the active round - makes the headline number explainable.
 function renderBreakdown(h) {
   const el = els.scoreBreakdown;
   el.innerHTML = "";
@@ -379,7 +378,7 @@ function renderBreakdown(h) {
   });
 }
 
-// The "what changed & why" trail — one line per round's critique, built live.
+// The "what changed & why" trail - one line per round's critique, built live.
 function renderTrail() {
   const rows = history.filter((h) => h.critique);
   els.changeSummary.innerHTML = "";
@@ -447,7 +446,7 @@ function sendTo(target, btn) {
   };
   const url = urls[target] || urls.chatgpt;
 
-  // Hand off to the content script (installed extension only — content scripts
+  // Hand off to the content script (installed extension only - content scripts
   // don't run on a localhost web page, where clipboard paste is the path).
   if (hasChromeStorage()) store.set({ pf_pending: { prompt, ts: Date.now() } });
   if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(() => {});
@@ -515,7 +514,7 @@ function trimForges(list, cap = HISTORY_CAP) {
 function renderHistory() {
   els.historyList.innerHTML = "";
   if (!hasStorage()) {
-    els.historyList.appendChild(emptyRow("History needs the installed extension — storage isn't available here."));
+    els.historyList.appendChild(emptyRow("History needs the installed extension - storage isn't available here."));
     return;
   }
   store.get(["forges"], (d) => {
@@ -551,7 +550,7 @@ function historyCard(e) {
 
   const meta = document.createElement("span");
   meta.className = "hist-meta";
-  const scoreStr = e.score != null ? `${e.score}/100` : "—";
+  const scoreStr = e.score != null ? `${e.score}/100` : "-";
   meta.textContent = `${e.personaLabel} · ${scoreStr} · ${e.rounds} round${e.rounds > 1 ? "s" : ""} · ${relTime(e.ts)}`;
 
   top.append(star, meta);
@@ -640,6 +639,6 @@ function friendlyError(err) {
   if (s === 429) return "Rate limited or out of credits. Try again shortly.";
   if (s === 400) return "Request rejected: " + (err.message || "bad request") + ".";
   if (s >= 500) return "Anthropic API error. Try again in a moment.";
-  if (err.message && /Failed to fetch/i.test(err.message)) return "Network error — couldn't reach the API.";
+  if (err.message && /Failed to fetch/i.test(err.message)) return "Network error - couldn't reach the API.";
   return err.message || "Something went wrong.";
 }
