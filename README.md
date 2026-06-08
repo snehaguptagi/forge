@@ -73,7 +73,7 @@ Each expert's instructions encode best practices distilled from Anthropic, OpenA
 
 ## Install (from source)
 
-1. **Get the code:** click the green **Code** button above and **Download ZIP**, then unzip it. (Or `git clone https://github.com/snehaguptanurix/promptforge.git`.)
+1. **Download Forge:** grab the packaged build from the [latest Release](https://github.com/snehaguptanurix/promptforge/releases/latest) (`forge-v1.0.0.zip`) and unzip it. (Or click **Code -> Download ZIP**, or `git clone https://github.com/snehaguptanurix/promptforge.git`.)
 2. Open `chrome://extensions` in Chrome (or Edge / Brave).
 3. Turn on **Developer mode** (top right).
 4. Click **Load unpacked** and select the unzipped `promptforge-extension` folder.
