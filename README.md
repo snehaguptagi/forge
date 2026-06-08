@@ -71,12 +71,15 @@ Each expert's instructions encode best practices distilled from Anthropic, OpenA
 - **Inline button** on those sites: optimize what you typed without leaving the page.
 - **Local first:** bring your own Anthropic key, stored in `chrome.storage.local`. No account, no middleman.
 
-## Install (unpacked)
+## Install (from source)
 
-1. Open `chrome://extensions`.
-2. Turn on **Developer mode** (top right).
-3. Click **Load unpacked** and select this folder.
-4. Pin Forge from the puzzle-piece menu.
+1. **Get the code:** click the green **Code** button above and **Download ZIP**, then unzip it. (Or `git clone https://github.com/snehaguptanurix/promptforge.git`.)
+2. Open `chrome://extensions` in Chrome (or Edge / Brave).
+3. Turn on **Developer mode** (top right).
+4. Click **Load unpacked** and select the unzipped `promptforge-extension` folder.
+5. Pin Forge from the puzzle-piece menu, open it, and add your own Anthropic API key in Settings.
+
+> It's bring-your-own-key: each person uses their own Anthropic key (stored locally) and pays their own API usage. There are no accounts and no backend.
 
 ## First run
 
